@@ -1,0 +1,74 @@
+.586
+.MODEL FLAT
+INCLUDE io.h
+.STACK 4096
+
+.DATA
+x dd ?
+y dd ?
+prompt1 BYTE "enter the weighted sum :(x)",0
+prompt2 BYTE "enter the sum of weight :(y)",0
+arrayD dd 4 DUP(?)
+arrayD1 dd 4 DUP(?)
+
+string BYTE 40 DUP(?)
+resultlbl BYTE "the weighted sum",0
+resultlbl1 BYTE "the sum of weights",0
+resultlbl2 BYTE "the weighted average",0
+
+wsum BYTE 11 DUP(?)
+sum BYTE 11 DUP(?)
+aver BYTE 11 DUP(?)
+
+.CODE
+MainProc PROC
+mov ecx,4
+mov eax,0
+mov ebx,0
+myloop:
+   input prompt1 ,string,40
+   atod string
+   mov x,eax
+   input prompt2 ,string,40
+   atod string
+   mov y,eax
+  
+   mov arrayD ,eax
+   mov arrayD1 ,ebx
+     dec ecx
+   cmp ecx,0
+   jne myloop
+Loop myloop
+ mov eax,x
+   mov ebx,y
+
+  mov eax,arrayD
+   mov ebx,arrayD1
+   imul eax,ebx
+   dtoa wsum,eax
+   output resultlbl,wsum
+
+   mov ebx,arrayD1
+   mov eax,0
+   mov eax,ebx
+   dtoa sum,eax
+   output resultlbl1,sum
+
+;   dec ecx
+ ;  cmp ecx,0
+  ; jne myloop
+
+;Loop myloop
+ 
+ 
+ mov eax,0
+ mov ebx,0
+ mov eax,arrayD
+ mov ebx,arrayD1
+ div ebx
+
+dtoa aver,eax
+output resultlbl2,aver
+ret
+MainProc ENDP
+ENDEND

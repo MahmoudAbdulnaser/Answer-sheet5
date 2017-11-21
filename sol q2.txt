@@ -1,0 +1,44 @@
+.586
+.MODEL FLAT
+
+INCLUDE io.h             
+
+.STACK 4096
+.DATA
+x dd   ?
+y dd   ?
+z dd   ?
+prompt1 BYTE    "Enter x", 0
+prompt2 BYTE    "Enter y", 0
+prompt3 BYTE    "Enter z", 0
+
+asd  BYTE    40 DUP (?)
+resultLbl BYTE  "The result is", 0
+sum     BYTE    11 DUP (?), 0
+
+.CODE
+MainProc PROC
+        	input   prompt1, asd, 40      
+       	 atod    asd					 
+        	mov     x, eax			 
+
+	input   prompt2, asd, 40      
+        	atod    asd					 
+        	mov     y, eax	
+
+	input   prompt3, asd, 40      
+        	atod    asd					 
+       	mov     z , eax
+mov eax ,x
+mov ebx ,y
+mov ecx ,z
+add eax,ebx
+imul eax,2
+add eax,ecx
+
+dtoa sum ,eax
+output resultlbl ,sum
+mov eax ,0
+ret
+MainProc ENDP
+END

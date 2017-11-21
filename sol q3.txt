@@ -1,0 +1,43 @@
+.586
+.MODEL FLAT
+
+INCLUDE io.h             
+
+.STACK 4096
+.DATA
+x dd   ?
+y dd   ?
+
+prompt1 BYTE    "Enter length", 0
+prompt2 BYTE    "Enter width", 0
+
+
+string  BYTE    40 DUP (?)
+resultLbl BYTE  "The Perimeter of a rectangle is", 0
+sum     BYTE    11 DUP (?), 0
+
+.CODE
+MainProc PROC
+        	input   prompt1, string, 40      
+       	 atod    string					 
+        	mov    x , eax			 
+
+	input   prompt2, string, 40      
+        	atod    string				 
+        	mov     y, eax	
+
+
+mov eax ,x
+mov ebx ,y
+add eax,ebx
+imul eax ,2
+
+
+
+
+dtoa sum ,eax
+output resultlbl ,sum
+mov eax ,0
+ret
+MainProc ENDP
+END
